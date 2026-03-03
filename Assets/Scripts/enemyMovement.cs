@@ -19,7 +19,8 @@ public class enemyMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+ 
+    private void FixedUpdate()
     {
         if(Vector2.Distance(target.position,transform.position) <= 0.1f)
         {
@@ -30,15 +31,11 @@ public class enemyMovement : MonoBehaviour
                 Destroy(gameObject);
                 return;
             }
-            else
-            {
-                target = LevelManager.main.path[pathIndex];
-            }
+
+            target = LevelManager.main.path[pathIndex];
         }
-    }
-    private void FixedUpdate()
-    {
-        Vector2 direction = (target.position - transform.position).normalized;
+
+        Vector2 direction = ((Vector2)target.position - (Vector2)transform.position).normalized;
         rb.linearVelocity = direction * movementSpeed;
     }
 }
