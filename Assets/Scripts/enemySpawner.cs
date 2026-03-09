@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using Unity.Mathematics;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class enemySpawner : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private GameObject[] enemyList;
+    [SerializeField] private int baseEnemys = 8;
+    [SerializeField] private float EnemiesPerSecond = 0.5f ;
+    [SerializeField] private float timeInBetweenWaves = 5.0f;
+    [SerializeField] private float diffFactor = 0.75f; 
+
+    public static UnityEvent onEnemyDestroy;
+    private int currentWave = 1;
+    private float timeFromLastSpawn;
+    private float enemiesAlive;
+    private int enemiesLeftToSpawn;
+    private Boolean isSpawning = false;
+
+    void Start()
+    {
+        StartWave();
+    }
+    private void Awake()
+    {
+        onEnemyDestroy.AddListener(onEnemyDestroyed);
+    }
+
+    void StartWave()
+    {
+        isSpawning = true;
+        enemiesLeftToSpawn = EnemiesPerWave();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(!isSpawning) return;
+
+        timeFromLastSpawn += Time.deltaTime;
+
+        if(timeFromLastSpawn >= (1f / EnemiesPerSecond) && enemiesLeftToSpawn > 0)
+        {
+            SpawnEnemies();
+            enemiesLeftToSpawn--;
+            enemiesAlive++;
+            timeFromLastSpawn = 0.0f;
+        }
+        
+    }
+    private void onEnemyDestroyed()
+    {
+        enemiesAlive--;
+    }
+    private void SpawnEnemies()
+    {
+        GameObject enemyPreFab = enemyList[0];
+
+        Instantiate(enemyPreFab, LevelManager.main.startPoint.position, quaternion.identity);
+    }
+
+    private int EnemiesPerWave()
+    {
+        return Mathf.RoundToInt(baseEnemys * Mathf.Pow(currentWave, diffFactor));
+    }
+}
