@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using NUnit.Framework;
 using Unity.Mathematics;
 using UnityEngine;
@@ -32,7 +33,7 @@ public class enemySpawner : MonoBehaviour
 
     private IEnumerator StartWave()
     {
-        yeild return new WaitForSeconds(timeInBetweenWaves);
+        yield return new WaitForSeconds(timeInBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
     }
@@ -61,6 +62,8 @@ public class enemySpawner : MonoBehaviour
     {
         isSpawning = false;
         timeFromLastSpawn = 0.0f;
+        currentWave++;
+        StartCoroutine(StartWave());
     }
     private void onEnemyDestroyed()
     {
