@@ -2,11 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using Unity.VisualScripting;
-using UnityEngine.UIElements;
-using Unity.Mathematics;
-using System.Numerics;
-using UnityEngine.InputSystem.Controls;
 
 public class Turret : MonoBehaviour
 {
@@ -50,8 +45,8 @@ public class Turret : MonoBehaviour
 
     private void FindTarget()
     {
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(transform.position, targetingRange, (UnityEngine.Vector2) transform.position, 0f, enemyMask );
-        if(hit.Length > 0){
+        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, targetingRange, enemyMask);
+        if (hit.Length > 0) {
             target = hit[0].transform;
         }
     }
@@ -59,12 +54,12 @@ public class Turret : MonoBehaviour
     {
         float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
 
-        UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.Euler(new UnityEngine.Vector3(0f,0f,angle));
-        turretRotationPoint.rotation = UnityEngine.Quaternion.RotateTowards(turretRotationPoint.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f,0f,angle));
+        turretRotationPoint.rotation = Quaternion.RotateTowards(turretRotationPoint.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
     }
     private bool CheckIfTargetIsInRange()
     {
-        return UnityEngine.Vector2.Distance(target.position, transform.position) <= targetingRange;
+        return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
 }
