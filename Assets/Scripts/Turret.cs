@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using Unity.Mathematics;
 using System.Numerics;
+using UnityEngine.InputSystem.Controls;
 
 public class Turret : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Turret : MonoBehaviour
     [SerializeField] private float targetingRange = 5f;
 
     [SerializeField] private LayerMask enemyMask;
+
+    [SerializeField] private float rotationSpeed = 200.0f;
 
 
     private void OnDrawGizmosSelected()
@@ -38,21 +41,30 @@ public class Turret : MonoBehaviour
             return;
         }
         RotateToTarget();
+
+        if (!CheckIfTargetIsInRange())
+        {
+            target = null;
+        }
     }
 
     private void FindTarget()
     {
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(transform.position, targetingRange, (Vector2)transform.position, 0f, enemyMask );
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(transform.position, targetingRange, (UnityEngine.Vector2) transform.position, 0f, enemyMask );
         if(hit.Length > 0){
             target = hit[0].transform;
         }
     }
     private void RotateToTarget()
     {
-        float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
 
-        quaternion targetRotation = quaternion.Euler(new Vector3(0f,0f,angle));
-        transform.rotation = targetRotation;
+        UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.Euler(new UnityEngine.Vector3(0f,0f,angle));
+        turretRotationPoint.rotation = UnityEngine.Quaternion.RotateTowards(turretRotationPoint.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
+    }
+    private bool CheckIfTargetIsInRange()
+    {
+        return UnityEngine.Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
 }
