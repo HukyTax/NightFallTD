@@ -5115,18 +5115,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1631659805722981735, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.64278764
-      objectReference: {fileID: 0}
-    - target: {fileID: 1631659805722981735, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.76604444
-      objectReference: {fileID: 0}
-    - target: {fileID: 1631659805722981735, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 2553979655000185607, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.4222414
@@ -5166,10 +5154,6 @@ PrefabInstance:
     - target: {fileID: 2553979655000185607, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4524127247580239854, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
-      propertyPath: enemyMask.m_Bits
-      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 8491257608664617686, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
       propertyPath: m_Name
