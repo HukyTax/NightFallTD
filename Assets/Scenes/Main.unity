@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 529343557}
   - component: {fileID: 529343556}
   - component: {fileID: 529343558}
+  - component: {fileID: 529343559}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -637,6 +638,20 @@ MonoBehaviour:
   EnemiesPerSecond: 0.5
   timeInBetweenWaves: 5
   diffFactor: 0.75
+--- !u!114 &529343559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529343555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2f5dee916164c67a0e4e8a86139e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingPreFabs:
+  - {fileID: 8491257608664617686, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
 --- !u!1 &567690007
 GameObject:
   m_ObjectHideFlags: 0
