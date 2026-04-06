@@ -1,9 +1,10 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
 public class TowerDragHandler : MonoBehaviour
 {
     public GameObject tower;
+    public PlacementValidator validator;
     public GameObject ghostTower;
     public bool isDragging = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,15 +23,30 @@ public class TowerDragHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isDragging == true)
+        if(isDragging)
         {
             Vector2 position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
             ghostTower.transform.position = position;
+        
+            if (Input.GetMouseButtonDown(1))
+            {
+                Destroy(ghostTower);
+                isDragging = false;
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (validator.isValid(position))
+                {
+                    Instantiate(tower, position);
+                    Destroy(ghostTower);
+                    isDragging = false;
+                }
+            }
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            Destroy(ghostTower);
-            isDragging = false;
-        }
+    }
+
+    private void Instantiate(GameObject tower, Vector2 position)
+    {
+        throw new NotImplementedException();
     }
 }
