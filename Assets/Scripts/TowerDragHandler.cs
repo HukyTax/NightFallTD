@@ -5,7 +5,7 @@ public class TowerDragHandler : MonoBehaviour
 {
     public GameObject tower;
     public PlacementValidator validator;
-    public GameObject ghostTower;
+    private GameObject ghostTower;
     public bool isDragging = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void BeginDrag()
@@ -37,16 +37,13 @@ public class TowerDragHandler : MonoBehaviour
             {
                 if (validator.isValid(position))
                 {
-                    Instantiate(tower, position);
+                    Instantiate(tower, new Vector3(position.x, position.y, 0), Quaternion.identity);
                     Destroy(ghostTower);
                     isDragging = false;
                 }
             }
         }
     }
+}    
 
-    private void Instantiate(GameObject tower, Vector2 position)
-    {
-        throw new NotImplementedException();
-    }
-}
+

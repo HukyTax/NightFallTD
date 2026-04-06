@@ -6332,6 +6332,7 @@ GameObject:
   - component: {fileID: 633504605}
   - component: {fileID: 633504604}
   - component: {fileID: 633504608}
+  - component: {fileID: 633504609}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -6368,8 +6369,8 @@ MonoBehaviour:
   enemyList:
   - {fileID: 1137976731545786418, guid: 0ab0b6ea4e94c4fefacb7179faeca682, type: 3}
   baseEnemys: 8
-  EnemiesPerSecond: 0.5
-  timeInBetweenWaves: 5
+  EnemiesPerSecond: 1
+  timeInBetweenWaves: 3
   diffFactor: 0.75
 --- !u!114 &633504606
 MonoBehaviour:
@@ -6426,6 +6427,21 @@ MonoBehaviour:
   blockedLayers:
     serializedVersion: 2
     m_Bits: 264
+--- !u!114 &633504609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633504603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c940289469a6b428987be82b2c951f8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tower: {fileID: 8491257608664617686, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
+  validator: {fileID: 633504608}
+  isDragging: 1
 --- !u!1 &675843421
 GameObject:
   m_ObjectHideFlags: 0
