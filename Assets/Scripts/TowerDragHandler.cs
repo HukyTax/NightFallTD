@@ -12,12 +12,18 @@ public class TowerDragHandler : MonoBehaviour
     {
         isDragging = true;
         ghostTower =Instantiate(tower);
-        SpriteRenderer spriteRenderer= ghostTower.GetComponent<SpriteRenderer>();
-        spriteRenderer.color =  new Color(1,1,1,0.5f);
+        ghostTower.GetComponentInChildren<Collider2D>().enabled = false;
+        ghostTower.GetComponentInChildren<Turret>(). enabled = false;
+        SpriteRenderer[] renderers = ghostTower.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sr in renderers)
+        {
+            sr.material = new Material(Shader.Find("Sprites/Default"));
+            sr.color = new Color(1f, 0.5f, 0.5f, 0.5f);
+        }
     }
     void Start()
     {
-        
+        BeginDrag();
     }
 
     // Update is called once per frame

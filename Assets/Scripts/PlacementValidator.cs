@@ -17,11 +17,13 @@ public class PlacementValidator : MonoBehaviour
 
     public bool isValid(Vector2 position)
     {
-        Collider2D collider2D = Physics2D.OverlapCircle(position, 2, blockedLayers);
+        Collider2D collider2D = Physics2D.OverlapCircle(position, 0.5f, blockedLayers);
         if(collider2D == null)
         {
+            print("true");
             return true;
         }
+        print("false");
         return false;
     }
 }
