@@ -6409,7 +6409,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 620447280}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 633504609}
+        m_TargetAssemblyTypeName: TowerDragHandler, Assembly-CSharp
+        m_MethodName: BeginDrag
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &620447280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6570,7 +6582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tower: {fileID: 8491257608664617686, guid: cdba4ac61686c4de4ad9b5687c908a9f, type: 3}
   validator: {fileID: 633504608}
-  isDragging: 1
+  isDragging: 0
 --- !u!1 &675843421
 GameObject:
   m_ObjectHideFlags: 0
@@ -6580,6 +6592,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 675843422}
+  - component: {fileID: 675843423}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -6602,6 +6615,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &675843423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675843421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7197222f8e94f97bc59e1417809ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 1683050794}
 --- !u!1 &739840124
 GameObject:
   m_ObjectHideFlags: 0
@@ -50334,17 +50360,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915014720}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 797980596}
-  m_Father: {fileID: 1595640173}
+  m_Father: {fileID: 1683050795}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -794, y: -346.5}
+  m_AnchoredPosition: {x: -794, y: 83.79999}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &915014722
@@ -50390,7 +50416,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 915014723}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 675843423}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
+        m_MethodName: closeShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &915014723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51196,7 +51234,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1683050795}
-  - {fileID: 915014721}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -51236,6 +51273,7 @@ RectTransform:
   m_Children:
   - {fileID: 620447278}
   - {fileID: 1815506358}
+  - {fileID: 915014721}
   m_Father: {fileID: 1595640173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -51363,7 +51401,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1815506360}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 675843423}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
+        m_MethodName: openShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1815506360
 MonoBehaviour:
   m_ObjectHideFlags: 0

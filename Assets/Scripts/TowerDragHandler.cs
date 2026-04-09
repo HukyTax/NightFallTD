@@ -23,7 +23,7 @@ public class TowerDragHandler : MonoBehaviour
     }
     void Start()
     {
-        BeginDrag();
+        
     }
 
     // Update is called once per frame
