@@ -25,7 +25,11 @@ public class Bullet : MonoBehaviour
         // Normalizing gives a unit vector so bulletSpeed fully controls the magnitude.
         Vector2 direction = (target.position - transform.position).normalized;
         rb.linearVelocity = direction * bulletSpeed;
+
+
     }
+
+    
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

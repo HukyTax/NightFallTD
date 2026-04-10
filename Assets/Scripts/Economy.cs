@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Economy : MonoBehaviour
 {
-   int money = 0;
+   [SerializeField] private int money = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,6 +19,10 @@ public class Economy : MonoBehaviour
     }
     public int getMoney(){
         return money;
+    }
+    public void ChangeMoney(int money)
+    {
+        this.money = money;
     }
 
 

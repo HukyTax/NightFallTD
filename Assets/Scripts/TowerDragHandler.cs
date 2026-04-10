@@ -7,13 +7,17 @@ public class TowerDragHandler : MonoBehaviour
     public PlacementValidator validator;
     private GameObject ghostTower;
     public bool isDragging = false;
+    [SerializeField] int price;
+    public Economy economy;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void BeginDrag()
     {
+        //this.price = price;
         isDragging = true;
         ghostTower =Instantiate(tower);
         ghostTower.GetComponentInChildren<Collider2D>().enabled = false;
         ghostTower.GetComponentInChildren<Turret>(). enabled = false;
+        economy = gameObject.GetComponent<Economy>();
         SpriteRenderer[] renderers = ghostTower.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sr in renderers)
         {
@@ -41,12 +45,23 @@ public class TowerDragHandler : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0))
             {
-                if (validator.isValid(position))
-                {
-                    Instantiate(tower, new Vector3(position.x, position.y, 0), Quaternion.identity);
-                    Destroy(ghostTower);
-                    isDragging = false;
+                if(economy.getMoney() >= price){
+                    if (validator.isValid(position))
+                    {
+                        economy.ChangeMoney(economy.getMoney() - price);
+                        Instantiate(tower, new Vector3(position.x, position.y, 0), Quaternion.identity);
+                        Destroy(ghostTower);
+                        isDragging = false;
+                    }
+                    else
+                    {
+                        Debug.Log("This Position is not valid");
+                    }
                 }
+                else
+                {
+                    Debug.Log("Not Enough Money, The price for this tower is:"  + price);
+                }   
             }
         }
     }

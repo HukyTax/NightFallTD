@@ -71,7 +71,15 @@ public class enemySpawner : MonoBehaviour
     }
     private void SpawnEnemies()
     {
-        GameObject enemyPreFab = enemyList[0];
+        GameObject enemyPreFab;
+        if(UnityEngine.Random.Range(0,100) > 85)
+        {
+            enemyPreFab = enemyList[UnityEngine.Random.Range(0,enemyList.Length -1)];
+        }
+        else
+        {
+            enemyPreFab = enemyList[0];
+        }
 
         Instantiate(enemyPreFab, LevelManager.main.startPoint.position, quaternion.identity);
     }
