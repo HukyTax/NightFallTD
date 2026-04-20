@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -27,9 +28,18 @@ public class Bullet : MonoBehaviour
         rb.linearVelocity = direction * bulletSpeed;
 
 
+
+
+    }
+    void Update()
+    {
+        if(Mathf.Abs(transform.position.x) > 25 || Mathf.Abs(transform.position.y) > 25 ) 
+        {
+            Destroy(gameObject);
+        }
     }
 
-    
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

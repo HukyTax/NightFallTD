@@ -4,9 +4,10 @@ public class HealthManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] public int health = 100;
+    levelLoader levelloader;
     void Start()
     {
-        
+        levelloader = gameObject.GetComponentInChildren<levelLoader>();
     }
 
     // Update is called once per frame
@@ -15,6 +16,8 @@ public class HealthManager : MonoBehaviour
         if(health <= 0)
         {
             Debug.Log("GameOver");
+            levelloader.gameOver();
+
         }
     }
     public void updateHealth(int damage)
