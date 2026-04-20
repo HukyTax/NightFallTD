@@ -10,12 +10,23 @@ public class enemyMovement : MonoBehaviour
     [Header("Atrubites")]
     [SerializeField] private float movementSpeed = 2f;
 
+    public HealthManager healthManager;
+    public Health health;
+
     private Transform target;
     private int pathIndex = 0;
+
+    public void set()
+    {
+        GameObject LevelManager = GameObject.Find("LevelManager");
+         healthManager = LevelManager.GetComponentInChildren<HealthManager>();
+         health = GetComponentInChildren<Health>();
+    }
 
     void Start()
     {
         target = LevelManager.main.path[pathIndex];
+        set();
     }
 
     // Update is called once per frame
@@ -29,6 +40,7 @@ public class enemyMovement : MonoBehaviour
             if(pathIndex == LevelManager.main.path.Length)
             {   
                 enemySpawner.onEnemyDestroy.Invoke();
+                healthManager.updateHealth(health.GethitPoints());
                 Destroy(gameObject);
                 return;
             }

@@ -8,7 +8,9 @@ public class UiManager : MonoBehaviour
     private Button close;
     private Button open;
     public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI healthText;
     Economy economy;
+    HealthManager healthManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] GameObject panel;
@@ -17,6 +19,7 @@ public class UiManager : MonoBehaviour
     {
         GameObject LevelManager = GameObject.Find("LevelManager");
         economy = LevelManager.GetComponentInChildren<Economy>();
+        healthManager = LevelManager.GetComponent<HealthManager>();
 
         Button[] buttons = panel.GetComponentsInChildren<Button>(true);
         foreach (Button bt in buttons)
@@ -36,6 +39,7 @@ public class UiManager : MonoBehaviour
     void Update()
     {
         UpdateMoney();
+        UpdateHealth();
     }
 
     public void openShop()
@@ -53,5 +57,9 @@ public class UiManager : MonoBehaviour
     
     public void UpdateMoney(){
         moneyText.text = ("Money:" + economy.getMoney());
+    }
+    public void UpdateHealth()
+    {
+        healthText.text = ("Health:" +healthManager.getHealth());
     }
 }

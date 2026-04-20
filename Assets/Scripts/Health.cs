@@ -33,4 +33,8 @@ public class Health : MonoBehaviour
     {
         
     }
+    public int GethitPoints()
+    {
+        return hitPoints;
+    }
 }
