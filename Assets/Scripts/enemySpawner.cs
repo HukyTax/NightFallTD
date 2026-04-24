@@ -72,7 +72,7 @@ public class enemySpawner : MonoBehaviour
     private void SpawnEnemies()
     {
         GameObject enemyPreFab;
-        if(UnityEngine.Random.Range(0,100) > 85)
+        if(UnityEngine.Random.Range(0,60) > 85)
         {
             enemyPreFab = enemyList[UnityEngine.Random.Range(0,enemyList.Length -1)];
         }
