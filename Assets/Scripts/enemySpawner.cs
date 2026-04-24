@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections;
-using NUnit.Framework;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
@@ -72,16 +71,16 @@ public class enemySpawner : MonoBehaviour
     private void SpawnEnemies()
     {
         GameObject enemyPreFab;
-        if(UnityEngine.Random.Range(0,60) > 85)
+        if (enemyList.Length > 1 && UnityEngine.Random.Range(0, 100) < 20)
         {
-            enemyPreFab = enemyList[UnityEngine.Random.Range(0,enemyList.Length -1)];
+            enemyPreFab = enemyList[UnityEngine.Random.Range(1, enemyList.Length)];
         }
         else
         {
             enemyPreFab = enemyList[0];
         }
 
-        Instantiate(enemyPreFab, LevelManager.main.startPoint.position, quaternion.identity);
+        Instantiate(enemyPreFab, LevelManager.main.startPoint.position, Quaternion.identity);
     }
 
     private int EnemiesPerWave()

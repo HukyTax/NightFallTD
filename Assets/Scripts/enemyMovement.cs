@@ -1,13 +1,11 @@
-using System.IO;
+using System.Collections;
 using UnityEngine;
 
 public class enemyMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-
-    [Header("Referance")]
+    [Header("Reference")]
     [SerializeField] private Rigidbody2D rb;
-    [Header("Atrubites")]
+    [Header("Attributes")]
     [SerializeField] private float movementSpeed = 2f;
 
     public HealthManager healthManager;
@@ -15,12 +13,13 @@ public class enemyMovement : MonoBehaviour
 
     private Transform target;
     private int pathIndex = 0;
+    private bool isSlowed = false;
 
     public void set()
     {
         GameObject LevelManager = GameObject.Find("LevelManager");
-         healthManager = LevelManager.GetComponentInChildren<HealthManager>();
-         health = GetComponentInChildren<Health>();
+        healthManager = LevelManager.GetComponentInChildren<HealthManager>();
+        health = GetComponentInChildren<Health>();
     }
 
     void Start()
@@ -29,16 +28,14 @@ public class enemyMovement : MonoBehaviour
         set();
     }
 
-    // Update is called once per frame
- 
     private void FixedUpdate()
     {
-        if(Vector2.Distance(target.position,transform.position) <= 0.1f)
+        if (Vector2.Distance(target.position, transform.position) <= 0.1f)
         {
             pathIndex++;
-            
-            if(pathIndex == LevelManager.main.path.Length)
-            {   
+
+            if (pathIndex == LevelManager.main.path.Length)
+            {
                 enemySpawner.onEnemyDestroy.Invoke();
                 healthManager.updateHealth(health.GethitPoints());
                 Destroy(gameObject);
@@ -50,5 +47,23 @@ public class enemyMovement : MonoBehaviour
 
         Vector2 direction = ((Vector2)target.position - (Vector2)transform.position).normalized;
         rb.linearVelocity = direction * movementSpeed;
+    }
+
+    public void ApplySlow(float factor, float duration)
+    {
+        if (!isSlowed)
+        {
+            StartCoroutine(SlowCoroutine(factor, duration));
+        }
+    }
+
+    private IEnumerator SlowCoroutine(float factor, float duration)
+    {
+        isSlowed = true;
+        float originalSpeed = movementSpeed;
+        movementSpeed *= 1f - factor;
+        yield return new WaitForSeconds(duration);
+        movementSpeed = originalSpeed;
+        isSlowed = false;
     }
 }

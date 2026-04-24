@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using Unity.Mathematics;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Turret : MonoBehaviour
 {
@@ -12,17 +15,19 @@ public class Turret : MonoBehaviour
     [SerializeField] private GameObject bulletPreFab;
     [SerializeField] private Transform firingPoint;
     [SerializeField] private float rotationSpeed = 200.0f;
-    [SerializeField] private float bps = 1.2f; // bullets per second
+    [SerializeField] private float bps = 1.2f;
+    [SerializeField] private int bulletDamage = 1;
 
     private Transform target;
     private float TimeUntilFire;
 
-    // Draws the targeting range as a circle in the Scene view when selected.
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
     }
+#endif
 
     void Update()
     {
@@ -37,10 +42,10 @@ public class Turret : MonoBehaviour
         if (!CheckIfTargetIsInRange())
         {
             target = null;
+            TimeUntilFire = 0f;
         }
         else
         {
-            // Accumulate time and fire once enough has passed for the current bps rate.
             TimeUntilFire += Time.deltaTime;
             if (TimeUntilFire >= 1f / bps)
             {
@@ -53,13 +58,13 @@ public class Turret : MonoBehaviour
     {
         GameObject bulletObj = Instantiate(bulletPreFab, firingPoint.position, Quaternion.identity);
         Bullet bulletScript = bulletObj.GetComponent<Bullet>();
-        TimeUntilFire = 0f;
+        bulletScript.SetDamage(bulletDamage);
         bulletScript.SetTarget(target);
+        TimeUntilFire = 0f;
     }
 
     private void FindTarget()
     {
-        // Cast an overlap circle using only the enemy layer to avoid hitting other colliders.
         Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, targetingRange, enemyMask);
         if (hit.Length > 0)
         {
@@ -69,8 +74,6 @@ public class Turret : MonoBehaviour
 
     private void RotateToTarget()
     {
-        // Atan2 gives the angle (in radians) toward the target; -90 corrects for the
-        // sprite's default "up" orientation so the barrel points at the enemy.
         float angle = Mathf.Atan2(target.position.y - transform.position.y,
                                    target.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
 
@@ -82,4 +85,15 @@ public class Turret : MonoBehaviour
     {
         return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
+
+    public void ApplyUpgrade(float rangeBonus, float bpsBonus, int damageBonus)
+    {
+        targetingRange += rangeBonus;
+        bps += bpsBonus;
+        bulletDamage += damageBonus;
+    }
+
+    public float GetRange() => targetingRange;
+    public float GetBps() => bps;
+    public int GetDamage() => bulletDamage;
 }
