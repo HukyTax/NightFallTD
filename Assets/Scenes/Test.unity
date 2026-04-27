@@ -7095,7 +7095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0eae5d7740349b68b75b2332e565e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 1000
+  money: 45
 --- !u!114 &633504611
 MonoBehaviour:
   m_ObjectHideFlags: 0
