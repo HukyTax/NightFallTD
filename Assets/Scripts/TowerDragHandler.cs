@@ -12,12 +12,10 @@ public class TowerDragHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void BeginDrag()
     {
-        //this.price = price;
         isDragging = true;
-        ghostTower =Instantiate(tower);
+        ghostTower = Instantiate(tower);
         ghostTower.GetComponentInChildren<Collider2D>().enabled = false;
-        ghostTower.GetComponentInChildren<Turret>(). enabled = false;
-        economy = gameObject.GetComponent<Economy>();
+        ghostTower.GetComponentInChildren<Turret>().enabled = false;
         SpriteRenderer[] renderers = ghostTower.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sr in renderers)
         {
@@ -27,17 +25,17 @@ public class TowerDragHandler : MonoBehaviour
     }
     void Start()
     {
-        
+        economy = GameObject.Find("LevelManager").GetComponentInChildren<Economy>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isDragging)
+        if (isDragging)
         {
-            Vector2 position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+            Vector2 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             ghostTower.transform.position = position;
-        
+
             if (Input.GetMouseButtonDown(1))
             {
                 Destroy(ghostTower);
@@ -45,7 +43,8 @@ public class TowerDragHandler : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0))
             {
-                if(economy.getMoney() >= price){
+                if (economy.getMoney() >= price)
+                {
                     if (validator.isValid(position))
                     {
                         economy.ChangeMoney(economy.getMoney() - price);
@@ -60,8 +59,8 @@ public class TowerDragHandler : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Not Enough Money, The price for this tower is:"  + price);
-                }   
+                    Debug.Log("Not enough money. Price: " + price);
+                }
             }
         }
     }

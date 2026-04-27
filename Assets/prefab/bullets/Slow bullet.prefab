@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7864615154826874462}
   - component: {fileID: 5288334086793289915}
   m_Layer: 7
-  m_Name: bullet
+  m_Name: Slow bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9339623, g: 0.3568441, b: 0.3568441, a: 1}
+  m_Color: {r: 0.10123708, g: 0.76211023, b: 0.8584906, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -168,3 +168,10 @@ MonoBehaviour:
   rb: {fileID: 7864615154826874462}
   bulletSpeed: 8
   bulletDamage: 1
+  maxLifetime: 5
+  slowFactor: 0
+  slowDuration: 2
+  explosionRadius: 0
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 0

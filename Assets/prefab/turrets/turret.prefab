@@ -250,8 +250,9 @@ GameObject:
   - component: {fileID: 4524127247580239854}
   - component: {fileID: -5499556402478524658}
   - component: {fileID: 4047531991857930214}
+  - component: {fileID: 730056093779640636}
   m_Layer: 8
-  m_Name: Slow Turret
+  m_Name: turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,14 +288,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretRotationPoint: {fileID: 1631659805722981735}
-  targetingRange: 8
+  targetingRange: 5
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
-  bulletPreFab: {fileID: 6506141307427453960, guid: 445c07b2a85614337a302dc62d27ced9, type: 3}
+  bulletPreFab: {fileID: 6506141307427453960, guid: 68dc20d623a0a464f90d982753f59da3, type: 3}
   firingPoint: {fileID: 7658176208225377041}
   rotationSpeed: 200
-  bps: 0.55
+  bps: 1.2
+  bulletDamage: 1
 --- !u!60 &-5499556402478524658
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -403,6 +405,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &730056093779640636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8491257608664617686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2daa3f99c2c041e785235179525a73b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgrades: []
+  upgradePanel: {fileID: 0}
+  upgradeCostText: {fileID: 0}
+  upgradeMaxText: {fileID: 0}
 --- !u!1001 &953131878264724682
 PrefabInstance:
   m_ObjectHideFlags: 0
