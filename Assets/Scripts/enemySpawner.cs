@@ -87,4 +87,8 @@ public class enemySpawner : MonoBehaviour
     {
         return Mathf.RoundToInt(baseEnemys * Mathf.Pow(currentWave, diffFactor));
     }
+    public int getWave()
+    {
+        return currentWave;
+    }
 }

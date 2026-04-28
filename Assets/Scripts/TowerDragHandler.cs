@@ -12,6 +12,7 @@ public class TowerDragHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void BeginDrag()
     {
+        Debug.Log("cost: " + price);
         isDragging = true;
         ghostTower = Instantiate(tower);
         ghostTower.GetComponentInChildren<Collider2D>().enabled = false;

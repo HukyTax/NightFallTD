@@ -9,8 +9,10 @@ public class UiManager : MonoBehaviour
     private Button open;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI healthText;
+    public TextMeshProUGUI roundText;
     Economy economy;
     HealthManager healthManager;
+    enemySpawner enemyspawner;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] GameObject panel;
@@ -20,6 +22,7 @@ public class UiManager : MonoBehaviour
         GameObject LevelManager = GameObject.Find("LevelManager");
         economy = LevelManager.GetComponentInChildren<Economy>();
         healthManager = LevelManager.GetComponent<HealthManager>();
+        enemyspawner = LevelManager.GetComponent<enemySpawner>();
 
         Button[] buttons = panel.GetComponentsInChildren<Button>(true);
         foreach (Button bt in buttons)
@@ -40,6 +43,7 @@ public class UiManager : MonoBehaviour
     {
         UpdateMoney();
         UpdateHealth();
+        UpdateRound();
     }
 
     public void openShop()
@@ -61,5 +65,9 @@ public class UiManager : MonoBehaviour
     public void UpdateHealth()
     {
         healthText.text = ("Health:" +healthManager.getHealth());
+    }
+    public void UpdateRound()
+    {
+        roundText.text = ("Round: " + enemyspawner.getWave());
     }
 }
