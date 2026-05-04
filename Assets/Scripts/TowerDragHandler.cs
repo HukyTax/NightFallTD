@@ -21,7 +21,7 @@ public class TowerDragHandler : MonoBehaviour
         foreach (SpriteRenderer sr in renderers)
         {
             sr.material = new Material(Shader.Find("Sprites/Default"));
-            sr.color = new Color(1f, 0.5f, 0.5f, 0.5f);
+            sr.color = new Color(0f, 0.0f, 0.5f, 0.5f);
         }
     }
     void Start()
@@ -34,8 +34,35 @@ public class TowerDragHandler : MonoBehaviour
     {
         if (isDragging)
         {
+
             Vector2 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             ghostTower.transform.position = position;
+            SpriteRenderer[] renderers = ghostTower.GetComponentsInChildren<SpriteRenderer>();
+
+            if (validator.isValid(position)){
+                foreach (SpriteRenderer sr in renderers)
+                {
+                    sr.material = new Material(Shader.Find("Sprites/Default"));
+                    sr.color = new Color(0f, 1f, 0f, 0.5f);
+                }
+            }
+            else
+            {
+                foreach (SpriteRenderer sr in renderers)
+                {
+                    sr.material = new Material(Shader.Find("Sprites/Default"));
+                    sr.color = new Color(0.5f, 0f, 0f, 0.5f);
+                }
+            }
+            if(economy.getMoney() < price)
+            {
+                foreach (SpriteRenderer sr in renderers)
+                {
+                    sr.material = new Material(Shader.Find("Sprites/Default"));
+                    sr.color = new Color(1f, 0.6f, 0f, 0.5f);
+                }
+            }
+
 
             if (Input.GetMouseButtonDown(1))
             {

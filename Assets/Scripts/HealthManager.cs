@@ -19,6 +19,10 @@ public class HealthManager : MonoBehaviour
             levelloader.gameOver();
 
         }
+        // dev tool
+        if (Input.GetKeyDown(KeyCode.Tab)){
+            health += 25;
+        }
     }
     public void updateHealth(int damage)
     {

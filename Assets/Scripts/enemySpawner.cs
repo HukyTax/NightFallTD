@@ -55,6 +55,13 @@ public class enemySpawner : MonoBehaviour
         {
             EndWave();
         }
+        // dev tool (not working right)
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            currentWave += 1;
+            enemiesAlive = 0;
+            enemiesLeftToSpawn= 0;
+        }
         
     }
     private void EndWave()

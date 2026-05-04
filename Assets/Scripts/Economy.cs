@@ -12,6 +12,11 @@ public class Economy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // dev tool
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            money += 100;
+        }
         
     }
     public void AddMoney(int moneyReward){
