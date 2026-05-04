@@ -9,10 +9,18 @@ public class TowerDragHandler : MonoBehaviour
     public bool isDragging = false;
     [SerializeField] int price;
     public Economy economy;
+    private LevelManager levelManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void BeginDrag()
     {
+        GameObject LevelManager = GameObject.Find("LevelManager");
+        levelManager = LevelManager.GetComponentInChildren<LevelManager>();
         Debug.Log("cost: " + price);
+        if(levelManager.getActiveShadow())
+        {
+            levelManager.UpdateActiveShadow(false);
+        }
+        levelManager.UpdateActiveShadow(true);
         isDragging = true;
         ghostTower = Instantiate(tower);
         ghostTower.GetComponentInChildren<Collider2D>().enabled = false;
@@ -32,6 +40,8 @@ public class TowerDragHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!levelManager.getActiveShadow()){
+        }
         if (isDragging)
         {
 
