@@ -7,21 +7,30 @@ using Unity.Mathematics;
 using UnityEditor;
 #endif
 
+// Core tower AI: scans for the nearest enemy, rotates to track it, and fires
+// at a configurable rate. Stats (range, bps, damage) can be upgraded additively
+// by TowerUpgrade when the player clicks the tower.
 public class Turret : MonoBehaviour
 {
+    // The child transform that visually rotates to face the current target.
     [SerializeField] private Transform turretRotationPoint;
     [SerializeField] private float targetingRange = 5f;
+    // Layer mask for enemy detection — keeps the overlap check fast by ignoring other layers.
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private GameObject bulletPreFab;
+    // The child transform bullets spawn from — should be at the barrel tip.
     [SerializeField] private Transform firingPoint;
     [SerializeField] private float rotationSpeed = 200.0f;
+    // Bullets per second. Accumulates delta time and fires when it reaches 1/bps.
     [SerializeField] private float bps = 1.2f;
+    // Overrides the bullet prefab's default damage when Shoot() is called.
     [SerializeField] private int bulletDamage = 1;
 
     private Transform target;
     private float TimeUntilFire;
 
 #if UNITY_EDITOR
+    // Draws the targeting radius as a cyan disc in the Scene view when this object is selected.
     private void OnDrawGizmosSelected()
     {
         Handles.color = Color.cyan;
@@ -31,6 +40,7 @@ public class Turret : MonoBehaviour
 
     void Update()
     {
+        // No target — search for one and skip the rest of the logic this frame.
         if (target == null)
         {
             FindTarget();
@@ -39,6 +49,7 @@ public class Turret : MonoBehaviour
 
         RotateToTarget();
 
+        // Drop the target if it walked out of range between frames.
         if (!CheckIfTargetIsInRange())
         {
             target = null;
@@ -58,11 +69,13 @@ public class Turret : MonoBehaviour
     {
         GameObject bulletObj = Instantiate(bulletPreFab, firingPoint.position, Quaternion.identity);
         Bullet bulletScript = bulletObj.GetComponent<Bullet>();
+        // Push current damage stat to the bullet so upgrades take effect immediately.
         bulletScript.SetDamage(bulletDamage);
         bulletScript.SetTarget(target);
         TimeUntilFire = 0f;
     }
 
+    // Picks the first enemy found in range — no priority (first-in, closest, etc.) logic yet.
     private void FindTarget()
     {
         Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, targetingRange, enemyMask);
@@ -72,6 +85,8 @@ public class Turret : MonoBehaviour
         }
     }
 
+    // Calculates the angle to the target using Atan2, then smoothly rotates toward it.
+    // The -90f offset corrects for the turret sprite being drawn pointing up rather than right.
     private void RotateToTarget()
     {
         float angle = Mathf.Atan2(target.position.y - transform.position.y,
@@ -86,6 +101,7 @@ public class Turret : MonoBehaviour
         return Vector2.Distance(target.position, transform.position) <= targetingRange;
     }
 
+    // Called by TowerUpgrade. All bonuses are additive — they stack with each upgrade tier.
     public void ApplyUpgrade(float rangeBonus, float bpsBonus, int damageBonus)
     {
         targetingRange += rangeBonus;
