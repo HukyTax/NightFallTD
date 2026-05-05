@@ -1,35 +1,49 @@
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 
+// Manages the wave loop: waits between waves, spawns enemies at a fixed rate,
+// and advances to the next wave once all enemies are dead or have leaked through.
 public class enemySpawner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private GameObject[] enemyList;
-    [SerializeField] private int baseEnemys = 8;
-    [SerializeField] private float EnemiesPerSecond = 0.5f ;
-    [SerializeField] private float timeInBetweenWaves = 5.0f;
-    [SerializeField] private float diffFactor = 0.75f; 
 
+    // Base number of enemies in wave 1. Grows each wave via EnemiesPerWave().
+    [SerializeField] private int baseEnemys = 8;
+
+    // How many enemies spawn per second while a wave is active.
+    [SerializeField] private float EnemiesPerSecond = 0.5f;
+
+    [SerializeField] private float timeInBetweenWaves = 5.0f;
+
+    // Exponent for the wave scaling formula. Higher = harder difficulty curve.
+    // Formula: baseEnemys * currentWave ^ diffFactor
+    [SerializeField] private float diffFactor = 0.75f;
+
+    // Static event so any system (Health, enemyMovement) can notify the spawner
+    // that an enemy left the field — whether killed or leaked.
     public static UnityEvent onEnemyDestroy = new UnityEvent();
+
     private int currentWave = 1;
     private float timeFromLastSpawn;
-    private float enemiesAlive;
-    private int enemiesLeftToSpawn;
+    private int enemiesAlive;         // decremented by onEnemyDestroyed listener
+    private int enemiesLeftToSpawn;  // decremented each time SpawnEnemies() fires
     private Boolean isSpawning = false;
 
     void Start()
     {
         StartCoroutine(StartWave());
     }
+
     private void Awake()
     {
         onEnemyDestroy.AddListener(onEnemyDestroyed);
     }
 
+    // Waits the inter-wave delay then arms the spawner for the new wave.
     private IEnumerator StartWave()
     {
         yield return new WaitForSeconds(timeInBetweenWaves);
@@ -37,33 +51,36 @@ public class enemySpawner : MonoBehaviour
         enemiesLeftToSpawn = EnemiesPerWave();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(!isSpawning) return;
+        if (!isSpawning) return;
 
         timeFromLastSpawn += Time.deltaTime;
 
-        if(timeFromLastSpawn >= (1f / EnemiesPerSecond) && enemiesLeftToSpawn > 0)
+        // Spawn one enemy each time the per-second interval elapses.
+        if (timeFromLastSpawn >= (1f / EnemiesPerSecond) && enemiesLeftToSpawn > 0)
         {
             SpawnEnemies();
             enemiesLeftToSpawn--;
             enemiesAlive++;
             timeFromLastSpawn = 0.0f;
         }
-        if(enemiesAlive == 0 && enemiesLeftToSpawn == 0)
+
+        // Wave ends when all enemies have been spawned AND none remain alive.
+        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
         {
             EndWave();
         }
-        // dev tool (not working right)
+
+        // Dev shortcut: P skips to the next wave instantly (note: may desync alive count).
         if (Input.GetKeyDown(KeyCode.P))
         {
             currentWave += 1;
             enemiesAlive = 0;
-            enemiesLeftToSpawn= 0;
+            enemiesLeftToSpawn = 0;
         }
-        
     }
+
     private void EndWave()
     {
         isSpawning = false;
@@ -71,10 +88,15 @@ public class enemySpawner : MonoBehaviour
         currentWave++;
         StartCoroutine(StartWave());
     }
+
+    // Fired by the static onEnemyDestroy event — both kills and leaks call this.
     private void onEnemyDestroyed()
     {
         enemiesAlive--;
     }
+
+    // Spawns a random enemy: 80% chance of the base type (index 0),
+    // 20% chance of a random variant from the rest of the list (if any exist).
     private void SpawnEnemies()
     {
         GameObject enemyPreFab;
@@ -90,10 +112,12 @@ public class enemySpawner : MonoBehaviour
         Instantiate(enemyPreFab, LevelManager.main.startPoint.position, Quaternion.identity);
     }
 
+    // Enemy count per wave scales as: base * wave^diffFactor (power curve, not exponential).
     private int EnemiesPerWave()
     {
         return Mathf.RoundToInt(baseEnemys * Mathf.Pow(currentWave, diffFactor));
     }
+
     public int getWave()
     {
         return currentWave;
