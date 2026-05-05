@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Attached to each tower button in the shop panel.
 // Manages the drag-to-place flow: when the player presses the button (BeginDrag),
@@ -7,6 +8,8 @@ using UnityEngine;
 // if the position is valid and the player can afford it. Right-click cancels.
 public class TowerDragHandler : MonoBehaviour
 {
+    private static GameObject activeGhost;
+    private static TowerDragHandler activeDragger;
     // The real tower prefab that gets placed when the player confirms a spot.
     public GameObject tower;
     // Checks whether a given world position is a legal place to build.
@@ -17,7 +20,9 @@ public class TowerDragHandler : MonoBehaviour
     // Gold cost of this tower type, set per-button in the Inspector.
     [SerializeField] int price;
     public Economy economy;
+    GameObject LevelManger;
     private LevelManager levelManager;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void BeginDrag()
@@ -27,68 +32,60 @@ public class TowerDragHandler : MonoBehaviour
         levelManager = LevelManager.GetComponentInChildren<LevelManager>();
         Debug.Log("cost: " + price);
         // If another ghost is active, reset the shared flag before setting it again.
-        if(levelManager.getActiveShadow())
+        if(activeDragger != this && activeDragger != null)
         {
-            levelManager.UpdateActiveShadow(false);
+            activeDragger.isDragging = false;
         }
-        levelManager.UpdateActiveShadow(true);
-        isDragging = true;
-        ghostTower = Instantiate(tower);
+        if(activeGhost != null)
+        {
+             Destroy(activeGhost);
+        }
+            ghostTower = Instantiate(tower);
+            activeDragger = this;
+            isDragging = true;
+            activeGhost = ghostTower;
         // Disable the collider and turret script so the ghost doesn't fight enemies
         // or physically block placement checks.
         ghostTower.GetComponentInChildren<Collider2D>().enabled = false;
         ghostTower.GetComponentInChildren<Turret>().enabled = false;
-        SpriteRenderer[] renderers = ghostTower.GetComponentsInChildren<SpriteRenderer>();
         // Initial ghost tint: blue = "dragging, not yet placed".
-        foreach (SpriteRenderer sr in renderers)
-        {
-            sr.material = new Material(Shader.Find("Sprites/Default"));
-            sr.color = new Color(0f, 0.0f, 0.5f, 0.5f);
-        }
     }
     void Start()
     {
         economy = GameObject.Find("LevelManager").GetComponentInChildren<Economy>();
     }
+    public void ChangeColor(float r, float g, float b)
+    {
+        SpriteRenderer[] renderers = ghostTower.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sr in renderers)
+                {
+                    sr.material = new Material(Shader.Find("Sprites/Default"));
+                    sr.color = new Color(r, g, b, 0.5f);
+                }
+    }
 
     // Update is called once per frame
     void Update()
     {
-        // NOTE: this block has an empty body — it currently does nothing.
-        if (!levelManager.getActiveShadow()){
-        }
         if (isDragging)
         {
             // Convert mouse screen position to world space each frame.
             Vector2 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             ghostTower.transform.position = position;
-            SpriteRenderer[] renderers = ghostTower.GetComponentsInChildren<SpriteRenderer>();
 
             // Green tint = valid placement spot.
             if (validator.isValid(position)){
-                foreach (SpriteRenderer sr in renderers)
-                {
-                    sr.material = new Material(Shader.Find("Sprites/Default"));
-                    sr.color = new Color(0f, 1f, 0f, 0.5f);
-                }
+                ChangeColor(0f,1f,0f);
             }
             else
             {
                 // Dark red tint = invalid spot (path, existing tower, blocked layer).
-                foreach (SpriteRenderer sr in renderers)
-                {
-                    sr.material = new Material(Shader.Find("Sprites/Default"));
-                    sr.color = new Color(0.5f, 0f, 0f, 0.5f);
-                }
+                ChangeColor(0.5f,0f,0f);
             }
             // Orange tint overrides green — valid spot but player can't afford it.
             if(economy.getMoney() < price)
             {
-                foreach (SpriteRenderer sr in renderers)
-                {
-                    sr.material = new Material(Shader.Find("Sprites/Default"));
-                    sr.color = new Color(1f, 0.6f, 0f, 0.5f);
-                }
+                ChangeColor(1f,0.6f,0f);
             }
 
 
