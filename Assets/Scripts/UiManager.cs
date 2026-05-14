@@ -6,9 +6,8 @@ using UnityEngine.UI;
 // the shop panel slide — open moves it up 90 units, close moves it back down.
 public class UiManager : MonoBehaviour
 {
-    // References found at runtime from the LevelManager hierarchy.
-    private Button close;
-    private Button open;
+    [SerializeField] private Button open;
+    [SerializeField] private Button close;
 
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI healthText;
@@ -28,13 +27,6 @@ public class UiManager : MonoBehaviour
         healthManager = levelManager.GetComponent<HealthManager>();
         enemyspawner = levelManager.GetComponent<enemySpawner>();
 
-        // Buttons are inactive by default, so `true` is required to find them.
-        Button[] buttons = panel.GetComponentsInChildren<Button>(true);
-        foreach (Button bt in buttons)
-        {
-            if (bt.name == "ToggelOpen")  open  = bt;
-            if (bt.name == "ToggelClose") close = bt;
-        }
     }
 
     void Update()

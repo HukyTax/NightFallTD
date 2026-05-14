@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 // Attached to each tower button in the shop UI.
 // Handles the full drag-to-place flow: spawns a ghost preview on BeginDrag,
 // colours it based on placement validity and affordability each frame,
@@ -18,26 +19,9 @@ public class TowerDragHandler : MonoBehaviour
     [SerializeField] int price;
 
     public Economy economy;
-<<<<<<< Updated upstream
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void BeginDrag()
-    {
-        Debug.Log("cost: " + price);
-        isDragging = true;
-        ghostTower = Instantiate(tower);
-        ghostTower.GetComponentInChildren<Collider2D>().enabled = false;
-        ghostTower.GetComponentInChildren<Turret>().enabled = false;
-        SpriteRenderer[] renderers = ghostTower.GetComponentsInChildren<SpriteRenderer>();
-        foreach (SpriteRenderer sr in renderers)
-        {
-            sr.material = new Material(Shader.Find("Sprites/Default"));
-            sr.color = new Color(0f, 0.0f, 0.5f, 0.5f);
-        }
-    }
-=======
+
     private LevelManager levelManager;
 
->>>>>>> Stashed changes
     void Start()
     {
         levelManager = GameObject.Find("LevelManager").GetComponentInChildren<LevelManager>();
@@ -63,9 +47,6 @@ public class TowerDragHandler : MonoBehaviour
 
     void Update()
     {
-<<<<<<< Updated upstream
-        if (isDragging)
-=======
         if (!isDragging) return;
 
         Vector2 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -85,7 +66,6 @@ public class TowerDragHandler : MonoBehaviour
     private void UpdateGhostTint(Vector2 position)
     {
         if (!validator.isValid(position))
->>>>>>> Stashed changes
         {
             TintGhost(new Color(0.5f, 0f, 0f, 0.5f));
             return;

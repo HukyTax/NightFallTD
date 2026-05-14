@@ -7036,6 +7036,7 @@ MonoBehaviour:
   - {fileID: 1322846295}
   - {fileID: 1075990690}
   startPoint: {fileID: 1140328914}
+  activeDragHandler: {fileID: 0}
 --- !u!4 &633504607
 Transform:
   m_ObjectHideFlags: 0
@@ -7165,6 +7166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7197222f8e94f97bc59e1417809ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  open: {fileID: 1815506359}
+  close: {fileID: 915014722}
   moneyText: {fileID: 514643008}
   healthText: {fileID: 444157169}
   roundText: {fileID: 1134898348}
@@ -51096,7 +51099,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 675843423}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: closeShop
+        m_MethodName: CloseShop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -52437,7 +52440,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 675843423}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: openShop
+        m_MethodName: OpenShop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
