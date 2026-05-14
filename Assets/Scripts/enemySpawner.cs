@@ -26,8 +26,11 @@ public class enemySpawner : MonoBehaviour
     // Static event so any system (Health, enemyMovement) can notify the spawner
     // that an enemy left the field — whether killed or leaked.
     public static UnityEvent onEnemyDestroy = new UnityEvent();
+    private int howManytypes = 1;
 
-    private int currentWave = 1;
+    private int counter = 10;
+
+    private int currentWave = 9;
     private float timeFromLastSpawn;
     private int enemiesAlive;         // decremented by onEnemyDestroyed listener
     private int enemiesLeftToSpawn;  // decremented each time SpawnEnemies() fires
@@ -82,10 +85,15 @@ public class enemySpawner : MonoBehaviour
     }
 
     private void EndWave()
-    {
+    { 
         isSpawning = false;
         timeFromLastSpawn = 0.0f;
         currentWave++;
+        if(currentWave == counter && (enemyList.Length -1) > howManytypes)
+        {   Debug.Log("More enemy types");
+            howManytypes++;
+            counter += 10;
+        }
         StartCoroutine(StartWave());
     }
 
@@ -95,20 +103,25 @@ public class enemySpawner : MonoBehaviour
         enemiesAlive--;
     }
 
-    // Spawns a random enemy: 80% chance of the base type (index 0),
-    // 20% chance of a random variant from the rest of the list (if any exist).
     private void SpawnEnemies()
     {
         GameObject enemyPreFab;
-        if (enemyList.Length > 1 && UnityEngine.Random.Range(0, 100) < 20)
-        {
-            enemyPreFab = enemyList[UnityEngine.Random.Range(1, enemyList.Length)];
+        if(howManytypes <= 1){
+            enemyPreFab = enemyList[0];
         }
         else
         {
-            enemyPreFab = enemyList[0];
-        }
+            if (enemyList.Length > 1 && UnityEngine.Random.Range(0, 100) < 20)
+            {
+                enemyPreFab = enemyList[UnityEngine.Random.Range(0, howManytypes)];
+                Debug.Log("yes");
+            }
+            else
+            {
+                enemyPreFab = enemyList[0];
+            }
 
+        }
         Instantiate(enemyPreFab, LevelManager.main.startPoint.position, Quaternion.identity);
     }
 
