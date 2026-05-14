@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using UnityEngine;
 
 
@@ -6,7 +8,8 @@ using UnityEngine;
 // colours it based on placement validity and affordability each frame,
 // and either places or cancels on mouse-up.
 public class TowerDragHandler : MonoBehaviour
-{
+{   
+
     // The real tower prefab to instantiate on successful placement.
     public GameObject tower;
     // Shared validator that checks whether a world position is free to build on.
@@ -33,6 +36,15 @@ public class TowerDragHandler : MonoBehaviour
     // previous ghost before setting the new one, so only one can exist at a time.
     public void BeginDrag()
     {
+        try
+        {
+            Destroy(levelManager.activeDragHandler.ghostTower);
+        }
+        catch (NullReferenceException)
+        {
+            Debug.Log("no ghosts");
+        }
+
         levelManager.SetActiveDrag(this);
         isDragging = true;
 
@@ -46,7 +58,9 @@ public class TowerDragHandler : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
+
+
         if (!isDragging) return;
 
         Vector2 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
