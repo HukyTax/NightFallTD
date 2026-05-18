@@ -26,11 +26,12 @@ public class enemySpawner : MonoBehaviour
     // Static event so any system (Health, enemyMovement) can notify the spawner
     // that an enemy left the field — whether killed or leaked.
     public static UnityEvent onEnemyDestroy = new UnityEvent();
+    //meant to be 1 but chnaged for testing
     private int howManytypes = 1;
 
     private int counter = 10;
-
-    private int currentWave = 9;
+    //meant to be 1 but changed for testing
+    private int currentWave = 1;
     private float timeFromLastSpawn;
     private int enemiesAlive;         // decremented by onEnemyDestroyed listener
     private int enemiesLeftToSpawn;  // decremented each time SpawnEnemies() fires
@@ -113,7 +114,7 @@ public class enemySpawner : MonoBehaviour
         {
             if (enemyList.Length > 1 && UnityEngine.Random.Range(0, 100) < 45)
             {
-                enemyPreFab = enemyList[UnityEngine.Random.Range(0, howManytypes)];
+                enemyPreFab = enemyList[UnityEngine.Random.Range(1, howManytypes)];
                 Debug.Log("yes");
             }
             else
