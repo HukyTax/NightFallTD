@@ -19,10 +19,8 @@ public class PlacementValidator : MonoBehaviour
         Collider2D collider2D = Physics2D.OverlapCircle(position, 0.5f, blockedLayers);
         if (collider2D == null)
         {
-            print("true");
             return true;
         }
-        print("false");
         return false;
     }
 }

@@ -111,7 +111,7 @@ public class enemySpawner : MonoBehaviour
         }
         else
         {
-            if (enemyList.Length > 1 && UnityEngine.Random.Range(0, 100) < 20)
+            if (enemyList.Length > 1 && UnityEngine.Random.Range(0, 100) < 45)
             {
                 enemyPreFab = enemyList[UnityEngine.Random.Range(0, howManytypes)];
                 Debug.Log("yes");

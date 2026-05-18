@@ -288,13 +288,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretRotationPoint: {fileID: 1631659805722981735}
-  targetingRange: 10
+  targetingRange: 100
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
   bulletPreFab: {fileID: 6506141307427453960, guid: 4dffcfdb1400d49f5bb5d2f651f6400a, type: 3}
   firingPoint: {fileID: 7658176208225377041}
-  rotationSpeed: 300
+  rotationSpeed: 1000
   bps: 0.4
   bulletDamage: 4
 --- !u!60 &-5499556402478524658

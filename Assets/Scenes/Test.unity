@@ -7007,6 +7007,9 @@ MonoBehaviour:
   enemyList:
   - {fileID: 1137976731545786418, guid: 0ab0b6ea4e94c4fefacb7179faeca682, type: 3}
   - {fileID: 8946252018377181526, guid: ce77ba4171a0e4754a8b1fc4dd440be4, type: 3}
+  - {fileID: 2830107597788583118, guid: 63bfc341205f7493d9d7db63fac58fc8, type: 3}
+  - {fileID: 3880915084775615380, guid: b481ddfc297994f6d9026f7882c9a2b4, type: 3}
+  - {fileID: 8946252018377181526, guid: ce77ba4171a0e4754a8b1fc4dd440be4, type: 3}
   baseEnemys: 8
   EnemiesPerSecond: 1
   timeInBetweenWaves: 3
