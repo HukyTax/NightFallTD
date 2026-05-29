@@ -418,17 +418,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgrades:
-  - cost: 0
-    rangeBonus: 0
-    bpsBonus: 0
-    damageBonus: 0
-  - cost: 0
-    rangeBonus: 0
-    bpsBonus: 0
-    damageBonus: 0
-  upgradePanel: {fileID: 0}
+  - cost: 30
+    rangeBonus: 1
+    bpsBonus: 1
+    damageBonus: 1
+  - cost: 40
+    rangeBonus: 1
+    bpsBonus: 1
+    damageBonus: 1
+  - cost: 80
+    rangeBonus: 1
+    bpsBonus: 2
+    damageBonus: 1
+  uiPanelContainer: {fileID: 0}
   upgradeCostText: {fileID: 0}
   upgradeMaxText: {fileID: 0}
+  UpgradeButton: {fileID: 0}
 --- !u!1001 &953131878264724682
 PrefabInstance:
   m_ObjectHideFlags: 0

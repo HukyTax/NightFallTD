@@ -426,9 +426,18 @@ MonoBehaviour:
     rangeBonus: 1
     bpsBonus: 0
     damageBonus: 2
+  - cost: 50
+    rangeBonus: 1
+    bpsBonus: 0
+    damageBonus: 2
+  - cost: 80
+    rangeBonus: 1
+    bpsBonus: 1
+    damageBonus: 2
   uiPanelContainer: {fileID: 0}
   upgradeCostText: {fileID: 0}
   upgradeMaxText: {fileID: 0}
+  UpgradeButton: {fileID: 0}
 --- !u!1001 &953131878264724682
 PrefabInstance:
   m_ObjectHideFlags: 0
