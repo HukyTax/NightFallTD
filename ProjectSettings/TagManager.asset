@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - enemy
+  - upgrade
+  - upgradeCost
+  - upgradeMax
+  - Upgrade
   layers:
   - Default
   - TransparentFX

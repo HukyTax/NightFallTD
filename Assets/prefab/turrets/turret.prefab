@@ -417,8 +417,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2daa3f99c2c041e785235179525a73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgrades: []
-  upgradePanel: {fileID: 0}
+  upgrades:
+  - cost: 10
+    rangeBonus: 1
+    bpsBonus: 1
+    damageBonus: 1
+  - cost: 30
+    rangeBonus: 1
+    bpsBonus: 0
+    damageBonus: 2
+  uiPanelContainer: {fileID: 0}
   upgradeCostText: {fileID: 0}
   upgradeMaxText: {fileID: 0}
 --- !u!1001 &953131878264724682
