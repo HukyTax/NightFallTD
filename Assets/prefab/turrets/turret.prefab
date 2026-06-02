@@ -419,16 +419,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgrades:
   - cost: 10
-    rangeBonus: 1
-    bpsBonus: 1
+    rangeBonus: 0
+    bpsBonus: 0
     damageBonus: 1
   - cost: 30
-    rangeBonus: 1
+    rangeBonus: 0
     bpsBonus: 0
-    damageBonus: 2
+    damageBonus: 1
   - cost: 50
     rangeBonus: 1
-    bpsBonus: 0
+    bpsBonus: 1
     damageBonus: 2
   - cost: 80
     rangeBonus: 1

@@ -187,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1746, y: 0}
+  m_AnchoredPosition: {x: 1758, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &202004386
@@ -7351,7 +7351,7 @@ GameObject:
   - component: {fileID: 675843423}
   m_Layer: 0
   m_Name: UIManager
-  m_TagString: Untagged
+  m_TagString: ui
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7383,6 +7383,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7197222f8e94f97bc59e1417809ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Uipanel: {fileID: 202004384}
+  costText: {fileID: 346664631}
+  upgradeMax: {fileID: 1541811160}
+  UpgradeButton: {fileID: 1086498449}
+  description: {fileID: 0}
   open: {fileID: 1815506359}
   close: {fileID: 915014722}
   moneyText: {fileID: 514643008}

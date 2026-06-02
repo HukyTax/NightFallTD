@@ -17,7 +17,8 @@ public class TowerUpgrade : MonoBehaviour
         public float bpsBonus;      // bullets-per-second increase
         public int damageBonus;
     }
-
+    private static Boolean inPos = false;
+    GameObject uiManager;
     [SerializeField] private UpgradeLevel[] upgrades;
     [SerializeField] private GameObject uiPanelContainer;
     [SerializeField] private TextMeshProUGUI upgradeCostText;
@@ -33,34 +34,29 @@ public class TowerUpgrade : MonoBehaviour
 
     void Start()
     {
-        uiPanelContainer = GameObject.FindWithTag("Upgrade");
+        // sets all the referances
+        uiManager = GameObject.FindWithTag("ui");
+        UiManager uiManagerScript = uiManager.GetComponent<UiManager>();
+        uiPanelContainer = uiManagerScript.getUpgradePanel();
+        upgradeCostText = uiManagerScript.getUpgradeCostText();
+        upgradeMaxText = uiManagerScript.getMaxUpgradeText();
+        UpgradeButton = uiManagerScript.getUpgradeButton();
 
-        if(uiPanelContainer != null)
-        {
-            UpgradeButton = uiPanelContainer.GetComponentInChildren<Button>(true);
-            // Finds all TextMeshProUGUI components anywhere inside the panel hierarchy
-            TextMeshProUGUI[] textFields = uiPanelContainer.GetComponentsInChildren<TextMeshProUGUI>(true);
-            // Assign them based on their hierarchy order, or use a loop to check names
-            foreach (var text in textFields)
-            {
-                if (text.gameObject.name.Contains("Cost")) upgradeCostText = text;
-                if (text.gameObject.name.Contains("Max")) upgradeMaxText = text;
-            }
-            turret = GetComponent<Turret>();
-            economy = GameObject.Find("LevelManager").GetComponentInChildren<Economy>();
-            // if (uiPanelContainer != null)
-            //uiPanelContainer.SetActive(false);
-            }
-        else
-        {
-            Debug.LogError("Could not find upgrade panel");
-        }
+
+        turret = GetComponent<Turret>();
+        economy = GameObject.Find("LevelManager").GetComponentInChildren<Economy>();
+
 
     }
 
     // Clicking the tower sprite toggles the upgrade panel open/closed.
     private void OnMouseDown()
     {
+        if (!inPos)
+        {
+            uiPanelContainer.transform.position += Vector3.left * 250f;
+            inPos = true;
+        }
         panelOpen = !panelOpen;
         if(UpgradeButton != null)
         {
@@ -70,12 +66,12 @@ public class TowerUpgrade : MonoBehaviour
         RefreshUI();
         if (uiPanelContainer != null && !open )
         {
-            uiPanelContainer.transform.position = new Vector3(uiPanelContainer.transform.position.x - 250, uiPanelContainer.transform.position.y);
+            uiPanelContainer.SetActive(true);
             open = true;
         }
         else
         {
-            uiPanelContainer.transform.position = new Vector3(uiPanelContainer.transform.position.x + 250, uiPanelContainer.transform.position.y);
+            uiPanelContainer.SetActive(false);
             open = false;
         }
     }

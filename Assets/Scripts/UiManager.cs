@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,12 @@ using UnityEngine.UI;
 // the shop panel slide — open moves it up 90 units, close moves it back down.
 public class UiManager : MonoBehaviour
 {
+    // for upgrade
+    [SerializeField] private GameObject Uipanel;
+    [SerializeField] private TextMeshProUGUI costText;
+    [SerializeField] private TextMeshProUGUI upgradeMax;
+    [SerializeField] private Button UpgradeButton;
+    [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private Button open;
     [SerializeField] private Button close;
 
@@ -16,7 +23,7 @@ public class UiManager : MonoBehaviour
     private Economy economy;
     private HealthManager healthManager;
     private enemySpawner enemyspawner;
-
+    
     // The shop panel GameObject. Its children are searched for the toggle buttons by name.
     [SerializeField] GameObject panel;
 
@@ -65,5 +72,21 @@ public class UiManager : MonoBehaviour
     public void UpdateRound()
     {
         roundText.text = "Round: " + enemyspawner.getWave();
+    }
+    public GameObject getUpgradePanel()
+    {
+        return Uipanel;
+    }
+    public TextMeshProUGUI getUpgradeCostText()
+    {
+        return costText;
+    }
+    public TextMeshProUGUI getMaxUpgradeText()
+    {
+        return upgradeMax;
+    }
+    public Button getUpgradeButton()
+    {
+        return UpgradeButton;
     }
 }

@@ -29,7 +29,7 @@ public class enemySpawner : MonoBehaviour
     //meant to be 1 but chnaged for testing
     private int howManytypes = 1;
 
-    private int counter = 10;
+    private int counter = 5;
     //meant to be 1 but changed for testing
     private int currentWave = 1;
     private float timeFromLastSpawn;
@@ -93,7 +93,8 @@ public class enemySpawner : MonoBehaviour
         if(currentWave == counter && (enemyList.Length -1) > howManytypes)
         {   Debug.Log("More enemy types");
             howManytypes++;
-            counter += 10;
+            EnemiesPerSecond *= 0.9f;
+            counter += 5;
         }
         StartCoroutine(StartWave());
     }
@@ -115,7 +116,6 @@ public class enemySpawner : MonoBehaviour
             if (enemyList.Length > 1 && UnityEngine.Random.Range(0, 100) < 45)
             {
                 enemyPreFab = enemyList[UnityEngine.Random.Range(1, howManytypes)];
-                Debug.Log("yes");
             }
             else
             {

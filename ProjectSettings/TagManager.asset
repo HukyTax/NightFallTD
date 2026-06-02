@@ -9,6 +9,7 @@ TagManager:
   - upgradeCost
   - upgradeMax
   - Upgrade
+  - ui
   layers:
   - Default
   - TransparentFX
