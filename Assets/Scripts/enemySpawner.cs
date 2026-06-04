@@ -36,10 +36,15 @@ public class enemySpawner : MonoBehaviour
     private int enemiesAlive;         // decremented by onEnemyDestroyed listener
     private int enemiesLeftToSpawn;  // decremented each time SpawnEnemies() fires
     private Boolean isSpawning = false;
+    private GameObject light;
+    private DayNightManager dayNightManager;
 
     void Start()
     {
         StartCoroutine(StartWave());
+        light = GameObject.Find("Light 2D");
+        dayNightManager = light.GetComponent<DayNightManager>();
+
     }
 
     private void Awake()
@@ -97,6 +102,8 @@ public class enemySpawner : MonoBehaviour
             counter += 5;
         }
         StartCoroutine(StartWave());
+        dayNightManager.AdvanceRoundTest();
+        
     }
 
     // Fired by the static onEnemyDestroy event — both kills and leaks call this.

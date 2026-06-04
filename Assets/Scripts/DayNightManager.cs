@@ -11,7 +11,7 @@ public class DayNightManager : MonoBehaviour
     GameObject levelManger;
     enemySpawner enemyspawner;
 
-    public int currentRound = 0;
+    public int currentRound = 8;
     public float maxBrightness = 1f;
 
     // 72 for a 3-day survival window
@@ -21,7 +21,7 @@ public class DayNightManager : MonoBehaviour
     
     void Start()
     {
-        light2D = GetComponent<Light2D>();
+        sunLight = GetComponent<Light2D>();
         levelManger = GameObject.Find("LevelManager");
         enemyspawner = levelManger.GetComponent<enemySpawner>();
 
@@ -39,7 +39,7 @@ public class DayNightManager : MonoBehaviour
     {
         if(currentRound >= totalRounds)
         {
-            Debug.Log("YOU WON!");
+            Debug.Log("YOU WON! :)");
             return;
         }
         int currentHour = enemyspawner.getWave() % 24;

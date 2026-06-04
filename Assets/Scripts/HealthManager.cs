@@ -18,7 +18,7 @@ public class HealthManager : MonoBehaviour
     {
         if (health <= 0)
         {
-            Debug.Log("GameOver");
+            Debug.Log("GameOver! :(");
             levelloader.gameOver();
         }
 
