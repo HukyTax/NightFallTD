@@ -18,6 +18,7 @@ public class DayNightManager : MonoBehaviour
     public int totalRounds = 72; 
 
     private Light2D sunLight;
+    private Boolean nightTime;
     
     void Start()
     {
@@ -47,11 +48,19 @@ public class DayNightManager : MonoBehaviour
         float sunHeight = -Mathf.Cos(angle);
 
         sunLight.intensity = Mathf.Max(0.1f, sunHeight) * maxBrightness;
+        if(sunLight.intensity <= .3f)
+        {
+            nightTime = true;
+        }
         
     }
     public void AdvanceRoundTest()
     {
         currentRound++;
         updateSun();
+    }
+    public Boolean GetIsNight()
+    {
+        return nightTime;
     }
 }

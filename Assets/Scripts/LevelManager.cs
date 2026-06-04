@@ -1,7 +1,6 @@
 using UnityEngine;
 
 
-// Central scene authority — singleton accessible via LevelManager.main.
 // Holds the enemy path waypoints and the spawn start point so any script
 // can reference them without needing a direct Inspector link.
 // Also owns the active drag handler slot so only one ghost tower can exist at a time.

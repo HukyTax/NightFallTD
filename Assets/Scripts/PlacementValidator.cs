@@ -2,7 +2,6 @@ using UnityEngine;
 
 // Determines whether a given world position is a legal tower placement spot.
 // Uses a Physics2D circle overlap against a configurable layer mask — any layer
-// you mark as "blocked" (path tiles, existing towers, UI, etc.) will reject placement.
 public class PlacementValidator : MonoBehaviour
 {
     // Assign all layers that should block tower placement (e.g. Path, TowerLayer).

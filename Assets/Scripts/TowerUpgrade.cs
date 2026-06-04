@@ -25,8 +25,6 @@ public class TowerUpgrade : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeMaxText;  // shown when fully upgraded
     [SerializeField] private Button UpgradeButton;
     static Boolean open = false;
-
-    // Index into `upgrades` — also equals "number of upgrades applied so far".
     private int currentLevel = 0;
     private Turret turret;
     private Economy economy;

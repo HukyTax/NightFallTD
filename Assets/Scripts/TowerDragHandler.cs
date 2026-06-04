@@ -6,7 +6,6 @@ using UnityEngine;
 // Attached to each tower button in the shop UI.
 // Handles the full drag-to-place flow: spawns a ghost preview on BeginDrag,
 // colours it based on placement validity and affordability each frame,
-// and either places or cancels on mouse-up.
 public class TowerDragHandler : MonoBehaviour
 {   
 
@@ -31,7 +30,6 @@ public class TowerDragHandler : MonoBehaviour
         economy = GameObject.Find("LevelManager").GetComponentInChildren<Economy>();
     }
 
-    // Called by the UI button's EventTrigger (PointerDown).
     // Registers this handler as the active drag — LevelManager cancels any
     // previous ghost before setting the new one, so only one can exist at a time.
     public void BeginDrag()
