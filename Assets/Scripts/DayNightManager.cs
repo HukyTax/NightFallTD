@@ -11,7 +11,7 @@ public class DayNightManager : MonoBehaviour
     GameObject levelManger;
     enemySpawner enemyspawner;
 
-    public int currentRound = 8;
+    public int currentRound = 0;
     public float maxBrightness = 1f;
 
     // 72 for a 3-day survival window
@@ -42,11 +42,11 @@ public class DayNightManager : MonoBehaviour
             Debug.Log("YOU WON! :)");
             return;
         }
-        int currentHour = enemyspawner.getWave() % 24;
+        int currentHour = enemyspawner.getWave() + 8 % 24;
         float angle = (2f * Mathf.PI / 24f) * currentHour;
         float sunHeight = -Mathf.Cos(angle);
 
-        sunLight.intensity = Mathf.Max(0f, sunHeight) * maxBrightness;
+        sunLight.intensity = Mathf.Max(0.1f, sunHeight) * maxBrightness;
         
     }
     public void AdvanceRoundTest()
