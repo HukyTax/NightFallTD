@@ -151,6 +151,7 @@ public class Turret : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Light"))
         {
+            Debug.Log("INLIGHT");
             inLight = true;
         }
     }
@@ -158,6 +159,14 @@ public class Turret : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Light"))
         {
+            inLight = false;
+        }
+    }
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Light"))
+        {
+            Debug.Log("INLIGHT");
             inLight = false;
         }
     }

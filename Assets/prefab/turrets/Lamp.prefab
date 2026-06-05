@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 668761134938408306}
   m_Layer: 8
   m_Name: Lamp
-  m_TagString: Untagged
+  m_TagString: Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
