@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using System;
 
 // Core tower behaviour: scans for the nearest enemy each frame, rotates to track it,
 // and fires a bullet at the configured rate. Stat upgrades are applied additively
@@ -31,18 +30,17 @@ public class Turret : MonoBehaviour
     [SerializeField] private float bps = 1.2f;
 
     [SerializeField] private int bulletDamage = 1;
+    private static Boolean showingRadius = false;
 
     private Transform target;
     private float TimeUntilFire;
 
-#if UNITY_EDITOR
-    // Draws the targeting range as a cyan wire disc in the Scene view when selected.
     private void OnDrawGizmosSelected()
     {
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
     }
-#endif
+
 
     void Update()
     {
@@ -114,6 +112,8 @@ public class Turret : MonoBehaviour
         bps += bpsBonus;
         bulletDamage += damageBonus;
     }
+
+
 
     public float GetRange() => targetingRange;
     public float GetBps() => bps;
