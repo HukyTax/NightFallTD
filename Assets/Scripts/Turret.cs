@@ -147,7 +147,7 @@ public class Turret : MonoBehaviour
     public int GetDamage() => bulletDamage;
 
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Light"))
         {
@@ -155,19 +155,13 @@ public class Turret : MonoBehaviour
             inLight = true;
         }
     }
-    public void OnCollisionExit2D(Collision2D collision)
+
+    public void OnTriggerExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Light"))
         {
             inLight = false;
         }
     }
-    public void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Light"))
-        {
-            Debug.Log("INLIGHT");
-            inLight = false;
-        }
-    }
+
 }
