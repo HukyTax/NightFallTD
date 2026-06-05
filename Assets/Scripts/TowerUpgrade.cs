@@ -29,6 +29,7 @@ public class TowerUpgrade : MonoBehaviour
     private Turret turret;
     private Economy economy;
     private bool panelOpen = false;
+    public Boolean isALamp = false;
 
     void Start()
     {
