@@ -6,8 +6,7 @@ public class DayNightManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    Boolean SunSetting = true;
-    [SerializeField] private int peakHour = 24;
+    //[SerializeField] private int peakHour = 24;
     GameObject levelManger;
     enemySpawner enemyspawner;
 

@@ -31,7 +31,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private float bps = 1.2f;
 
     [SerializeField] private int bulletDamage = 1;
-    //private static Boolean showingRadius = false;
+    private Boolean inLight = false;
 
     private Transform target;
     private float TimeUntilFire;
@@ -130,7 +130,11 @@ public class Turret : MonoBehaviour
 
     public float GetRange()
     {
-        if (DayNightManagerScript.GetIsNight())
+        if (inLight)
+        {
+            return targetingRange;
+        }
+        else if (DayNightManagerScript.GetIsNight())
         {
             return targetingRange * .7f;
         }
@@ -141,4 +145,20 @@ public class Turret : MonoBehaviour
     }
     public float GetBps() => bps;
     public int GetDamage() => bulletDamage;
+
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Light"))
+        {
+            inLight = true;
+        }
+    }
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Light"))
+        {
+            inLight = false;
+        }
+    }
 }

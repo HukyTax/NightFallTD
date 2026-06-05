@@ -36,7 +36,7 @@ public class enemySpawner : MonoBehaviour
     private int enemiesAlive;         // decremented by onEnemyDestroyed listener
     private int enemiesLeftToSpawn;  // decremented each time SpawnEnemies() fires
     private Boolean isSpawning = false;
-    private GameObject light;
+    private new GameObject light;
     private DayNightManager dayNightManager;
 
     void Start()

@@ -10,6 +10,8 @@ TagManager:
   - upgradeMax
   - Upgrade
   - ui
+  - Lamp
+  - Light
   layers:
   - Default
   - TransparentFX
