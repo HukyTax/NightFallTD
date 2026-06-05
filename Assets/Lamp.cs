@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -15,6 +16,11 @@ public class Lamp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //circleCollider2D.radius = light2D.pointLightOuterRadius;
+
+    }
+    public void upgradeRange(float upgrade)
+    {
+        light2D.pointLightOuterRadius += upgrade;
+        circleCollider2D.radius = light2D.pointLightOuterRadius;
     }
 }

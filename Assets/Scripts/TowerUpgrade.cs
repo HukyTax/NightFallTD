@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 // Attached to placed tower GameObjects. Clicking the tower opens an upgrade panel;
@@ -46,6 +47,8 @@ public class TowerUpgrade : MonoBehaviour
         economy = GameObject.Find("LevelManager").GetComponentInChildren<Economy>();
 
 
+
+
     }
 
     // Clicking the tower sprite toggles the upgrade panel open/closed.
@@ -87,9 +90,16 @@ public class TowerUpgrade : MonoBehaviour
             Debug.Log("Not enough money to upgrade. Cost: " + lvl.cost);
             return;
         }
+        if (isALamp)
+        {
+            GetComponentInChildren<Lamp>().upgradeRange(lvl.rangeBonus);
+        }
+        else
+        {
+            economy.ChangeMoney(economy.GetMoney() - lvl.cost);
+            turret.ApplyUpgrade(lvl.rangeBonus, lvl.bpsBonus, lvl.damageBonus);
+        }
 
-        economy.ChangeMoney(economy.GetMoney() - lvl.cost);
-        turret.ApplyUpgrade(lvl.rangeBonus, lvl.bpsBonus, lvl.damageBonus);
         currentLevel++;
         RefreshUI();
     }
