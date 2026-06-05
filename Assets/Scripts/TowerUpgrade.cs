@@ -25,7 +25,7 @@ public class TowerUpgrade : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeCostText;
     [SerializeField] private TextMeshProUGUI upgradeMaxText;  // shown when fully upgraded
     [SerializeField] private Button UpgradeButton;
-    static Boolean open = false;
+    private static TowerUpgrade currentOwner = null;
     private int currentLevel = 0;
     private Turret turret;
     private Economy economy;
@@ -66,16 +66,15 @@ public class TowerUpgrade : MonoBehaviour
             UpgradeButton.onClick.AddListener(Upgrade);
         }
         RefreshUI();
-        if (uiPanelContainer != null && !open )
-        {
-            uiPanelContainer.SetActive(true);
-            open = true;
-        }
-        else
+        if (currentOwner == this)
         {
             uiPanelContainer.SetActive(false);
-            open = false;
+            currentOwner = null;
+            return;
         }
+        currentOwner = this;
+        RefreshUI();
+        uiPanelContainer.SetActive(true);
     }
 
     // Called by the Upgrade button inside the panel.
@@ -93,6 +92,7 @@ public class TowerUpgrade : MonoBehaviour
         if (isALamp)
         {
             GetComponentInChildren<Lamp>().upgradeRange(lvl.rangeBonus);
+            economy.ChangeMoney(economy.GetMoney() - lvl.cost);
         }
         else
         {

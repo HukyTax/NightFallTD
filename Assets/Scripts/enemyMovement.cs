@@ -18,6 +18,12 @@ public class enemyMovement : MonoBehaviour
     private int pathIndex = 0;
     private bool isSlowed = false;  // guard so multiple bullets can't stack slows
 
+    // returns the pathIndex
+    public int GetPathIndex()
+    {
+       return pathIndex; 
+    } 
+
     // Called by enemySpawner after instantiation so the enemy can find scene references.
     // Can't use Start() for this because we need it set before the first FixedUpdate.
     public void set()
@@ -108,4 +114,5 @@ public class enemyMovement : MonoBehaviour
         sr = GetSR();
         if (sr != null) sr.color = original;
     }
+
 }

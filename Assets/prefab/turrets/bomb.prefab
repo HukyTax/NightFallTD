@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretRotationPoint: {fileID: 1631659805722981735}
-  targetingRange: 4
+  targetingRange: 3
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
@@ -434,6 +434,7 @@ MonoBehaviour:
   upgradeCostText: {fileID: 0}
   upgradeMaxText: {fileID: 0}
   UpgradeButton: {fileID: 0}
+  isALamp: 0
 --- !u!1001 &953131878264724682
 PrefabInstance:
   m_ObjectHideFlags: 0

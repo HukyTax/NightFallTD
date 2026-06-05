@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretRotationPoint: {fileID: 1631659805722981735}
-  targetingRange: 8
+  targetingRange: 3
   enemyMask:
     serializedVersion: 2
     m_Bits: 64

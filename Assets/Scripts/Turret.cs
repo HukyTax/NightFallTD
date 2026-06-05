@@ -91,19 +91,25 @@ public class Turret : MonoBehaviour
         TimeUntilFire = 0f;
     }
 
-    // Grabs the first enemy within range. No priority logic — first collider hit wins.
+    // gets the eninime furthest along the path. thats also within range
     private void FindTarget()
     {
+        int furthest = -1;
+
         Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, GetRange(), enemyMask);
-        if (hit.Length > 0)
+
+        foreach (Collider2D c in hit)
         {
-            target = hit[0].transform;
+            enemyMovement e = c.GetComponent<enemyMovement>();
+            if (e != null && e.GetPathIndex() > furthest)
+            {
+                furthest = e.GetPathIndex();
+                target = c.transform;
+            }
         }
     }
 
-    // Rotates the turret head toward the target using Atan2 for the angle, then
-    // clamps rotation speed so the head visibly sweeps rather than snapping instantly.
-    // The -90f offset corrects for the sprite being drawn pointing up instead of right.
+    //rotates the head of the turret to the unit
     private void RotateToTarget()
     {
         float angle = Mathf.Atan2(target.position.y - transform.position.y,
@@ -128,40 +134,21 @@ public class Turret : MonoBehaviour
 
 
 
-    public float GetRange()
+public float GetRange()
+{
+    if (!inLight && DayNightManagerScript.GetIsNight())
     {
-        if (inLight)
-        {
-            return targetingRange;
-        }
-        else if (DayNightManagerScript.GetIsNight())
-        {
-            return targetingRange * .7f;
-        }
-        else
-        {
-            return targetingRange;
-        }
+        return targetingRange * .7f;
     }
+    return targetingRange;
+}
     public float GetBps() => bps;
     public int GetDamage() => bulletDamage;
 
 
-    void OnTriggerEnter2D(Collision2D collision)
+    public void SetNightRangeBoost(Boolean inLight)
     {
-        if (collision.gameObject.CompareTag("Light"))
-        {
-            Debug.Log("INLIGHT");
-            inLight = true;
-        }
-    }
-
-    public void OnTriggerExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Light"))
-        {
-            inLight = false;
-        }
+        this.inLight = inLight;
     }
 
 }

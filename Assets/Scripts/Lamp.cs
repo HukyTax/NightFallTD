@@ -21,6 +21,21 @@ public class Lamp : MonoBehaviour
     public void upgradeRange(float upgrade)
     {
         light2D.pointLightOuterRadius += upgrade;
-        circleCollider2D.radius = light2D.pointLightOuterRadius;
+        circleCollider2D.radius = light2D.pointLightOuterRadius * 2;
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Turret t = other.GetComponent<Turret>();
+        if (t != null){ 
+            t.SetNightRangeBoost(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Turret t = other.GetComponent<Turret>();
+        if (t != null) {
+            t.SetNightRangeBoost(false);
+        }
     }
 }

@@ -42,7 +42,7 @@ public class DayNightManager : MonoBehaviour
             Debug.Log("YOU WON! :)");
             return;
         }
-        int currentHour = enemyspawner.getWave() + 8 % 24;
+        int currentHour = (enemyspawner.getWave() + 8) % 24;
         float angle = (2f * Mathf.PI / 24f) * currentHour;
         float sunHeight = -Mathf.Cos(angle);
 
@@ -50,6 +50,10 @@ public class DayNightManager : MonoBehaviour
         if(sunLight.intensity <= .3f)
         {
             nightTime = true;
+        }
+        else
+        {
+            nightTime = false;
         }
         
     }
