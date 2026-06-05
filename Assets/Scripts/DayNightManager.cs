@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class DayNightManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    Light2D light2D;
+
     Boolean SunSetting = true;
     [SerializeField] private int peakHour = 24;
     GameObject levelManger;

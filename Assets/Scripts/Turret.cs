@@ -5,6 +5,7 @@ using Unity.Mathematics;
 
 using UnityEditor;
 using System;
+using UnityEngine.Rendering.Universal;
 
 // Core tower behaviour: scans for the nearest enemy each frame, rotates to track it,
 // and fires a bullet at the configured rate. Stat upgrades are applied additively
@@ -30,20 +31,32 @@ public class Turret : MonoBehaviour
     [SerializeField] private float bps = 1.2f;
 
     [SerializeField] private int bulletDamage = 1;
-    private static Boolean showingRadius = false;
+    //private static Boolean showingRadius = false;
 
     private Transform target;
     private float TimeUntilFire;
+    private GameObject LightObj;
+    private DayNightManager DayNightManagerScript;
+
 
     private void OnDrawGizmosSelected()
     {
         Handles.color = Color.cyan;
-        Handles.DrawWireDisc(transform.position, transform.forward, targetingRange);
+        Handles.DrawWireDisc(transform.position, transform.forward, GetRange());
     }
+    void Start()
+    {
+       LightObj = GameObject.Find("Light 2D");
+       DayNightManagerScript = LightObj.GetComponent<DayNightManager>();
 
+    }
 
     void Update()
     {
+        if (DayNightManagerScript.GetIsNight())
+        {
+            
+        }
         if (target == null)
         {
             FindTarget();
@@ -81,7 +94,7 @@ public class Turret : MonoBehaviour
     // Grabs the first enemy within range. No priority logic — first collider hit wins.
     private void FindTarget()
     {
-        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, targetingRange, enemyMask);
+        Collider2D[] hit = Physics2D.OverlapCircleAll(transform.position, GetRange(), enemyMask);
         if (hit.Length > 0)
         {
             target = hit[0].transform;
@@ -102,7 +115,7 @@ public class Turret : MonoBehaviour
 
     private bool CheckIfTargetIsInRange()
     {
-        return Vector2.Distance(target.position, transform.position) <= targetingRange;
+        return Vector2.Distance(target.position, transform.position) <= GetRange();
     }
 
     // Called by TowerUpgrade to additively apply a purchased upgrade tier.
@@ -115,7 +128,17 @@ public class Turret : MonoBehaviour
 
 
 
-    public float GetRange() => targetingRange;
+    public float GetRange()
+    {
+        if (DayNightManagerScript.GetIsNight())
+        {
+            return targetingRange * .7f;
+        }
+        else
+        {
+            return targetingRange;
+        }
+    }
     public float GetBps() => bps;
     public int GetDamage() => bulletDamage;
 }
